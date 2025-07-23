@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentData = JSON.parse(JSON.stringify(mockData.all));
     let debounceTimer;
-    let chartInstances = {};
+    const chartInstances = {};
 
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -90,9 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const salesIndices = [];
             filteredData.sales.labels.forEach((date, index) => {
                 const currentDate = new Date(date);
-                if (currentDate >= startDate && currentDate <= endDate) {
-                    salesIndices.push(index);
-                }
+                if (currentDate >= startDate && currentDate <= endDate) salesIndices.push(index);
             });
 
             if (salesIndices.length > 0) {
@@ -105,9 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const activityIndices = [];
             filteredData.activity.labels.forEach((date, index) => {
                 const currentDate = new Date(date);
-                if (currentDate >= startDate && currentDate <= endDate) {
-                    activityIndices.push(index);
-                }
+                if (currentDate >= startDate && currentDate <= endDate) activityIndices.push(index);
             });
 
             if (activityIndices.length > 0) {
@@ -132,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (filteredData.sales && filteredData.sales.data) {
-            filteredData.orders = filteredData.sales.data.reduce((sum) => sum + 1, 0);
-            filteredData.revenue = filteredData.sales.data.reduce((sum, value) => sum + value, 0);
+            filteredData.orders = filteredData.sales.data.length;
+            filteredData.revenue = filteredData.sales.data.reduce((sum, val) => sum + val, 0);
         }
 
         return filteredData;
@@ -194,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = '<div class="loading-state"><div class="loading-spinner"></div></div>';
 
         setTimeout(() => {
-            if (document.getElementById(id)) {
-                if (chartInstances[id]) chartInstances[id].destroy();
+            if (chartInstances[id]) {
+                chartInstances[id].destroy();
             }
             container.innerHTML = `<canvas id="${id}" role="img" aria-label="Gráfico de ${config.data.datasets[0].label}"></canvas>`;
             const ctx = document.getElementById(id).getContext('2d');
@@ -204,11 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateDashboard(data) {
+        const salesLabels = data.sales?.labels?.map(formatShortDate) || [];
+        const activityLabels = data.activity?.labels?.map(formatShortDate) || [];
 
-        const salesLabels = data.sales?.labels?.map(label => formatShortDate(label)) || [];
-        const activityLabels = data.activity?.labels?.map(label => formatShortDate(label)) || [];
-
-        if (data.sales && data.sales.labels && data.sales.labels.length > 0) {
+        if (data.sales && data.sales.labels.length > 0) {
             renderOrUpdateChart('salesChart', {
                 type: 'line',
                 data: {
@@ -225,13 +220,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             document.querySelector('#salesChart').parentElement.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-chart-line"></i>
-                            <p>Não há dados de vendas para os filtros selecionados</p>
-                        </div>`;
+        <div class="empty-state">
+          <i class="fas fa-chart-line"></i>
+          <p>Não há dados de vendas para os filtros selecionados</p>
+        </div>`;
         }
 
-        if (data.inventory && data.inventory.labels && data.inventory.labels.length > 0) {
+        if (data.inventory && data.inventory.labels.length > 0) {
             renderOrUpdateChart('inventoryChart', {
                 type: 'bar',
                 data: {
@@ -249,13 +244,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             document.querySelector('#inventoryChart').parentElement.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-boxes"></i>
-                            <p>Não há dados de estoque para os filtros selecionados</p>
-                        </div>`;
+        <div class="empty-state">
+          <i class="fas fa-boxes"></i>
+          <p>Não há dados de estoque para os filtros selecionados</p>
+        </div>`;
         }
 
-        if (data.activity && data.activity.labels && data.activity.labels.length > 0) {
+        if (data.activity && data.activity.labels.length > 0) {
             renderOrUpdateChart('activityChart', {
                 type: 'line',
                 data: {
@@ -281,13 +276,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             document.querySelector('#activityChart').parentElement.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-users"></i>
-                            <p>Não há dados de atividade para os filtros selecionados</p>
-                        </div>`;
+        <div class="empty-state">
+          <i class="fas fa-users"></i>
+          <p>Não há dados de atividade para os filtros selecionados</p>
+        </div>`;
         }
 
-        if (data.customers && data.customers.labels && data.customers.labels.length > 0) {
+        if (data.customers && data.customers.labels.length > 0) {
             renderOrUpdateChart('customerChart', {
                 type: 'doughnut',
                 data: {
@@ -307,37 +302,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             document.querySelector('#customerChart').parentElement.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-user-friends"></i>
-                            <p>Não há dados demográficos para os filtros selecionados</p>
-                        </div>`;
+        <div class="empty-state">
+          <i class="fas fa-user-friends"></i>
+          <p>Não há dados demográficos para os filtros selecionados</p>
+        </div>`;
         }
 
-        document.getElementById('revenueValue').textContent = data.revenue ? `R$ ${data.revenue.toLocaleString('pt-BR')}` : 'R$ 0';
+        document.getElementById('revenueValue').textContent = `R$ ${(data.revenue || 0).toLocaleString('pt-BR')}`;
+
         document.getElementById('ordersValue').textContent = data.orders || '0';
 
-        // Seção de avaliações
         const reviewsContainer = document.getElementById('reviewsContainer');
         if (data.reviews && data.reviews.length > 0) {
             reviewsContainer.innerHTML = data.reviews.map(review => `
-                        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                                <span style="font-weight:600; color: var(--white)">${review.author}</span>
-                                <span style="color:var(--warning);">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
-                            </div>
-                            <p style="font-size:14px; opacity: 0.8; color: var(--light-gray)">"${review.text}"</p>
-                            <div style="font-size:12px; color: var(--light-gray); margin-top:5px;">${formatDate(review.date)}</div>
-                        </div>
-                    `).join('');
+        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+            <span style="font-weight:600; color: var(--white)">${review.author}</span>
+            <span style="color:var(--warning);">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
+          </div>
+          <p style="font-size:14px; opacity: 0.8; color: var(--light-gray)">"${review.text}"</p>
+          <div style="font-size:12px; color: var(--light-gray); margin-top:5px;">${formatDate(review.date)}</div>
+        </div>
+      `).join('');
             if (reviewsContainer.lastElementChild) {
                 reviewsContainer.lastElementChild.style.borderBottom = 'none';
             }
         } else {
             reviewsContainer.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-comment-alt-slash"></i>
-                            <p>Não há avaliações disponíveis para os filtros selecionados</p>
-                        </div>`;
+        <div class="empty-state">
+          <i class="fas fa-comment-alt-slash"></i>
+          <p>Não há avaliações disponíveis para os filtros selecionados</p>
+        </div>`;
         }
     }
 
@@ -352,91 +347,123 @@ document.addEventListener('DOMContentLoaded', () => {
         if (notifications.length === 0) {
             list.innerHTML = `<div class="empty-state"><i class="fas fa-bell-slash"></i><p>Não há notificações para exibir</p></div>`;
         } else {
-            list.innerHTML = notifications.map(item => `
-                        <div class="notification-item ${item.type} ${item.read ? 'read' : ''}" data-id="${item.id}">
-                            ${!item.read ? '<div class="notification-read"></div>' : ''}
-                            <p>${item.message}</p>
-                            <small>${formatDate(item.date)}</small>
-                        </div>
-                    `).join('');
+            list.innerHTML = notifications.map(n => `
+        <div class="notification-item ${n.read ? '' : 'unread'}" data-id="${n.id}" role="listitem" tabindex="0" aria-label="Notificação: ${n.message}">
+          <span class="icon ${n.type === 'danger' ? 'danger-icon' : 'info-icon'}"></span>
+          <p>${n.message}</p>
+          <small>${formatDate(n.date)}</small>
+        </div>
+      `).join('');
         }
     }
 
-    function markNotificationAsRead(id) {
-        const notification = currentData.notifications.find(n => n.id === id);
-        if (notification) notification.read = true;
-        populateNotifications();
-    }
+    async function fetchAndPopulateData() {
+        try {
+            const response = await fetch('https://642d9312bf8cbecdb4f9a3bb.mockapi.io/api/v1/dashboard');
+            if (!response.ok) throw new Error('Erro na requisição');
+            const apiData = await response.json();
 
-    // Trocar categoria (all, electronics, clothing)
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            const selectedCategory = e.target.dataset.category;
+            currentData = apiData;
 
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            e.target.classList.add('active');
+            const startDateInput = document.getElementById('startDate').value;
+            const endDateInput = document.getElementById('endDate').value;
+            const startDate = startDateInput ? new Date(startDateInput) : null;
+            const endDate = endDateInput ? new Date(endDateInput) : null;
 
-            currentData = JSON.parse(JSON.stringify(mockData[selectedCategory] || mockData.all));
+            const filteredData = filterDataByDateRange(currentData, startDate, endDate);
+
+            populateDashboard(filteredData);
+            populateNotifications();
+
+        } catch (error) {
+            console.error('Erro ao carregar dados da API, usando dados mock:', error);
 
             populateDashboard(currentData);
             populateNotifications();
-        });
-    });
-
-    // Filtrar por intervalo de datas
-    const startDateInput = document.getElementById('startDate');
-    const endDateInput = document.getElementById('endDate');
-
-    [startDateInput, endDateInput].forEach(input => {
-        input.addEventListener('change', () => {
-            if (debounceTimer) clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                const startDate = startDateInput.value ? new Date(startDateInput.value) : null;
-                const endDate = endDateInput.value ? new Date(endDateInput.value) : null;
-
-                const filtered = filterDataByDateRange(JSON.parse(JSON.stringify(currentData)), startDate, endDate);
-                populateDashboard(filtered);
-            }, 400);
-        });
-    });
-
-    document.querySelectorAll('.btn-learn-more').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const extraContent = e.target.closest('.card').querySelector('.card-extra-content');
-            const isVisible = extraContent.classList.toggle('visible');
-            e.target.textContent = isVisible ? 'Mostrar menos' : 'Saiba mais';
-        });
-    });
-
-    document.getElementById('notificationList').addEventListener('click', e => {
-        let target = e.target;
-        while (target && !target.classList.contains('notification-item')) {
-            target = target.parentElement;
         }
-        if (target) {
-            const id = parseInt(target.dataset.id);
-            markNotificationAsRead(id);
-        }
+    }
+
+    document.getElementById('applyFilters').addEventListener('click', () => {
+        const startDate = document.getElementById('startDate').value ? new Date(document.getElementById('startDate').value) : null;
+        const endDate = document.getElementById('endDate').value ? new Date(document.getElementById('endDate').value) : null;
+        const category = document.getElementById('categoryFilter').value;
+
+        currentData = JSON.parse(JSON.stringify(mockData[category] || mockData.all));
+        const filtered = filterDataByDateRange(currentData, startDate, endDate);
+        populateDashboard(filtered);
+        populateNotifications();
     });
 
-    const notificationBell = document.getElementById('notificationBell');
-    const notificationPanel = document.getElementById('notificationPanel');
-    const overlay = document.getElementById('overlay');
-    const closeNotifications = document.getElementById('closeNotifications');
 
-    const toggleNotifications = () => {
-        notificationPanel.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = notificationPanel.classList.contains('active') ? 'hidden' : '';
-    };
+    function onDateFilterChange() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const startDateInput = document.getElementById('startDate').value;
+            const endDateInput = document.getElementById('endDate').value;
+            const startDate = startDateInput ? new Date(startDateInput) : null;
+            const endDate = endDateInput ? new Date(endDateInput) : null;
 
-    notificationBell.addEventListener('click', toggleNotifications);
-    closeNotifications.addEventListener('click', toggleNotifications);
-    overlay.addEventListener('click', toggleNotifications);
+            const filteredData = filterDataByDateRange(currentData, startDate, endDate);
+            populateDashboard(filteredData);
+            populateNotifications();
+        }, 400);
+    }
 
 
-    // Inicialização
-    populateDashboard(currentData);
-    populateNotifications();
+    document.getElementById('categoryFilter').addEventListener('change', (e) => {
+        const selectedCategory = e.target.value;
+        if (selectedCategory && mockData[selectedCategory]) {
+            currentData = JSON.parse(JSON.stringify(mockData[selectedCategory]));
+        } else {
+            currentData = JSON.parse(JSON.stringify(mockData.all));
+        }
+
+        onDateFilterChange();
+    });
+
+    document.getElementById('startDate').addEventListener('change', onDateFilterChange);
+    document.getElementById('endDate').addEventListener('change', onDateFilterChange);
+
+    fetchAndPopulateData();
 });
+
+document.body.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-learn-more')) {
+        const extraContent = e.target.closest('.card').querySelector('.card-extra-content');
+        if (!extraContent) return;
+        const isVisible = extraContent.classList.toggle('visible');
+        e.target.textContent = isVisible ? 'Mostrar Menos' : 'Saiba Mais';
+    }
+});
+
+
+
+function renderNotifications() {
+    const list = document.getElementById("notificationList");
+    list.innerHTML = "";
+    mockData.notifications.forEach(n => {
+        const item = document.createElement("div");
+        item.className = "notification-item";
+        item.textContent = `${n.date} - ${n.message}`;
+        list.appendChild(item);
+    });
+
+    const badge = document.getElementById("notificationBadge");
+    badge.textContent = mockData.notifications.length;
+}
+
+const notificationBell = document.getElementById('notificationBell');
+const notificationPanel = document.getElementById('notificationPanel');
+const overlay = document.getElementById('overlay');
+const closeNotifications = document.getElementById('closeNotifications');
+
+const toggleNotifications = () => {
+    notificationPanel.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = notificationPanel.classList.contains('active') ? 'hidden' : '';
+};
+
+notificationBell.addEventListener('click', toggleNotifications);
+closeNotifications.addEventListener('click', toggleNotifications);
+overlay.addEventListener('click', toggleNotifications);
+

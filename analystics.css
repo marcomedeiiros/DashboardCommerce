@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-
 :root {
-    --charcoal: #1A202C;
-    --slate: #2D3748;
-    --electric-blue: #4299E1;
-    --emerald-green: #48BB78;
-    --light-gray: #A0AEC0;
-    --white: #FFFFFF;
-    --warning: #F6AD55;
-    --danger: #F56565;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --shadow-hover-color: rgba(0, 0, 0, 0.2);
-    --font-family: 'Quicksand', sans-serif;
+    --primary-purple: #3a57ff;       
+    --charcoal: #818181;           
+    --slate: #242424;              
+    --electric-blue: #4299e1;        
+    --emerald-green: #48bb78;       
+    --light-gray: #cacaca;           
+    --white: #f8f8f8;                
+    --danger: #ef4444;               
+    --warning: #f59e0b;              
+    --shadow-color: rgba(0, 0, 0, 0.25);
+    --shadow-hover-color: rgba(0, 0, 0, 0.5);
+    --font-family: 'Poppins', sans-serif;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-family);
 }
 
 body {
@@ -27,6 +27,7 @@ body {
     color: var(--light-gray);
     min-height: 100vh;
 }
+
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -37,7 +38,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--slate);
+    background: var(--primary-purple);
     border-radius: 4px;
 }
 
@@ -64,11 +65,11 @@ header {
 .logo {
     font-size: 24px;
     font-weight: 700;
-    color: var(--white);
+    color: rgb(43, 43, 43);
 }
 
 .logo span {
-    color: var(--electric-blue);
+    color: var(--primary-purple);
 }
 
 .user-info {
@@ -89,7 +90,7 @@ header {
     top: -5px;
     right: -8px;
     background-color: var(--danger);
-    color: white;
+    color: var(--white);
     border-radius: 50%;
     width: 18px;
     height: 18px;
@@ -105,13 +106,13 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--slate);
+    background-color: var(--primary-purple);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
     color: var(--white);
-    border: 2px solid var(--electric-blue);
+    border: 2px solid var(--white);
 }
 
 .dashboard-grid {
@@ -129,6 +130,7 @@ header {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    color: var(--white);
 }
 
 .card:hover {
@@ -198,8 +200,8 @@ header {
 
 .btn-learn-more {
     background-color: transparent;
-    border: 1px solid var(--electric-blue);
-    color: var(--electric-blue);
+    border: 1px solid var(--primary-purple);
+    color: var(--primary-purple);
     padding: 8px 14px;
     border-radius: 8px;
     font-size: 12px;
@@ -209,7 +211,7 @@ header {
 }
 
 .btn-learn-more:hover {
-    background-color: rgba(66, 153, 225, 0.1);
+    background-color: rgba(79, 70, 229, 0.15);
 }
 
 .sales-overview {
@@ -274,7 +276,7 @@ header {
 .filter-input {
     padding: 8px 12px;
     border-radius: 8px;
-    border: 1px solid var(--slate);
+    border: 1px solid var(--primary-purple);
     background-color: var(--charcoal);
     color: var(--white);
     font-size: 14px;
@@ -299,7 +301,7 @@ header {
 
 .filter-select:focus,
 .filter-input:focus {
-    outline: 1px solid var(--electric-blue);
+    outline: 1px solid var(--primary-purple);
 }
 
 .btn-primary {
@@ -309,12 +311,12 @@ header {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: var(--electric-blue);
-    color: white;
+    background-color: var(--primary-purple);
+    color: var(--white);
 }
 
 .btn-primary:hover {
-    background-color: #3182ce;
+    background-color: #4338ca;
 }
 
 .notification-panel {
@@ -324,12 +326,13 @@ header {
     width: 400px;
     height: 100vh;
     background-color: var(--slate);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.4);
     z-index: 1000;
     transition: right 0.4s ease-in-out;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    color: var(--white);
 }
 
 .notification-panel.active {
@@ -365,10 +368,11 @@ header {
 .notification-item {
     padding: 15px;
     margin-bottom: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #2d2f4a;  /* fundo sólido para visibilidade */
     border-radius: 8px;
-    border-left: 4px solid var(--electric-blue);
+    border-left: 4px solid var(--primary-purple);
     position: relative;
+    color: var(--white);
 }
 
 .notification-item.danger {
@@ -387,7 +391,7 @@ header {
     right: 15px;
     width: 8px;
     height: 8px;
-    background-color: var(--electric-blue);
+    background-color: var(--primary-purple);
     border-radius: 50%;
 }
 
@@ -405,7 +409,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(31, 41, 55, 0.8);
     z-index: 999;
     opacity: 0;
     pointer-events: none;
@@ -425,7 +429,7 @@ header {
     color: var(--white);
     padding: 15px 25px;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     z-index: 1002;
     transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 0;
@@ -445,20 +449,15 @@ header {
 .loading-spinner {
     border: 3px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    border-top: 3px solid var(--electric-blue);
+    border-top: 3px solid var(--primary-purple);
     width: 30px;
     height: 30px;
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .empty-state {
@@ -476,7 +475,7 @@ header {
 .empty-state i {
     font-size: 40px;
     margin-bottom: 15px;
-    color: var(--electric-blue);
+    color: var(--primary-purple);
 }
 
 @media (max-width: 1200px) {
