@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="analystics.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">M&M<span>Store</span></div>
+            <div class="user-info">
+                <div class="notification-bell" id="notificationBell" title="Notifications" aria-label="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge" id="notificationBadge" aria-live="polite"></div>
+                </div>
+                <div class="user-avatar" aria-label="User avatar">AD</div>
+            </div>
+        </header>
+
+        <main>
+            <section class="filters">
+                <div class="filter-group">
+                    <label for="startDate" class="filter-label">From:</label>
+                    <input type="date" class="filter-input" id="startDate" aria-label="Start date">
+                </div>
+                <div class="filter-group">
+                    <label for="endDate" class="filter-label">To:</label>
+                    <input type="date" class="filter-input" id="endDate" aria-label="End date">
+                </div>
+                <div class="filter-group">
+                    <label for="categoryFilter" class="filter-label">Category:</label>
+                    <select class="filter-select" id="categoryFilter" aria-label="Category filter">
+                        <option value="all" selected>All</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="applyFilters" aria-label="Apply filters">Apply Filters</button>
+            </section>
+            <section class="dashboard-grid">
+                <article class="card sales-overview" aria-labelledby="sales-title">
+                    <div class="card-header">
+                        <h3 class="card-title" id="sales-title">Sales Overview</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="salesChart" role="img" aria-label="Sales chart"></canvas>
+                    </div>
+                </article>
+                <article class="card revenue" aria-labelledby="revenue-title">
+                    <div class="card-header">
+                        <h3 class="card-title" id="revenue-title">Revenue</h3>
+                    </div>
+                    <div class="card-value" id="revenueValue">$24,580</div>
+                    <div class="card-footer card-change positive">
+                        <i class="fas fa-arrow-up" aria-hidden="true"></i> 
+                        <span>8.2% vs last period</span>
+                    </div>
+                </article>
+                <article class="card orders" aria-labelledby="orders-title">
+                    <div class="card-header">
+                        <h3 class="card-title" id="orders-title">Orders</h3>
+                    </div>
+                    <div class="card-value" id="ordersValue">184</div>
+                    <div class="card-footer card-change positive">
+                        <i class="fas fa-arrow-up" aria-hidden="true"></i> 
+                        <span>5.7% vs last period</span>
+                    </div>
+                </article>
+                <article class="card inventory-status" aria-labelledby="inventory-title">
+                    <div class="card-header">
+                        <h3 class="card-title" id="inventory-title">Inventory Levels</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="inventoryChart" role="img" aria-label="Inventory chart"></canvas>
+                    </div>
+                </article>
+                <article class="card customer-activity" aria-labelledby="activity-title">
+                    <div class="card-header">
+                        <h3 class="card-title" id="activity-title">Customer Activity</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="activityChart" role="img" aria-label="Customer activity chart"></canvas>
+                    </div>
+                </article>
+                <article class="card customer-demographics" aria-labelledby="demographics-title">
+                    <div class="card-header">
+                        <h3 class="card-title" id="demographics-title">Customer Demographics</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="customerChart" role="img" aria-label="Customer demographics chart"></canvas>
+                    </div>
+                </article>
+                <article class="card customer-reviews" aria-labelledby="reviews-title">
+                    <div class="card-header">
+                        <h3 class="card-title" id="reviews-title">Recent Reviews</h3>
+                    </div>
+                    <div id="reviewsContainer"></div>
+                    <div class="card-footer">
+                        <button class="btn-learn-more" aria-expanded="false" aria-controls="reviews-extra">Learn More</button>
+                    </div>
+                    <div class="card-extra-content" id="reviews-extra">
+                        <p>This section shows more detailed reviews and feedback, helping you understand the customer experience better.</p>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">
+            <h3 class="notification-title">Notifications</h3>
+            <button class="close-notifications" id="closeNotifications" aria-label="Close notifications">&times;</button>
+        </div>
+        <div id="notificationList" class="notification-list" role="log"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/main.js"></script>    
+</body>
+</html>
