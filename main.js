@@ -10,17 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeUsers: [150, 230, 180, 250, 200, 280, 320],
                 newUsers: [30, 45, 35, 50, 40, 55, 60]
             },
-            inventory: { labels: ['Smartphone', 'Headphones', 'Notebook', 'Monitor'], data: [5, 3, 12, 25] },
+            inventory: { labels: ['Celular', 'Fones de ouvido', 'Notebook', 'Monitor'], data: [5, 3, 12, 25] },
             customers: { labels: ['18-24', '25-34', '35-44', '45+'], data: [30, 45, 15, 10] },
             reviews: [
-                { id: 1, author: 'Maria J.', rating: 5, text: 'Love the product! Fast delivery and exceeded expectations.', date: '2023-05-15' },
-                { id: 2, author: 'John S.', rating: 4, text: 'Great sound quality. Battery life could be better.', date: '2023-05-14' },
+                { id: 1, author: 'Eduardo', rating: 5, text: 'Adorei o produto! Entrega rápida e superou as expectativas.', date: '2023-05-15' },
+                { id: 2, author: 'Vulgo D', rating: 4, text: 'Ótima qualidade de som. A duração da bateria poderia ser melhor.', date: '2023-05-14' },
             ],
             orders: 184,
             revenue: 24580,
             notifications: [
-                { id: 1, type: 'danger', message: 'Product "Headphones Pro" has only 3 units left in stock.', date: '2023-05-15T10:30:00', read: false },
-                { id: 2, type: 'danger', message: 'Product "Smartphone X9" has only 5 units left in stock.', date: '2023-05-14T14:15:00', read: false },
+                { id: 1, type: 'danger', message: 'O produto "Headphones Pro" tem apenas 3 unidades disponíveis em estoque.', date: '2023-05-15T10:30:00', read: false },
+                { id: 2, type: 'danger', message: 'O produto "Celular X9" tem apenas 5 unidades disponíveis em estoque.', date: '2023-05-14T14:15:00', read: false },
             ]
         },
         electronics: {
@@ -33,15 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeUsers: [100, 150, 120, 180, 140, 200, 220],
                 newUsers: [20, 30, 25, 35, 30, 40, 45]
             },
-            inventory: { labels: ['Smartphone', 'Headphones', 'Notebook'], data: [5, 3, 12] },
+            inventory: { labels: ['Celular', 'Fones de ouvido', 'Notebook'], data: [5, 3, 12] },
             customers: { labels: ['18-24', '25-34', '35-44', '45+'], data: [35, 50, 10, 5] },
             reviews: [
-                { id: 2, author: 'John S.', rating: 4, text: 'Great sound quality. Battery life could be better.', date: '2023-05-14' },
+                { id: 2, author: 'John S.', rating: 4, text: 'Ótima qualidade de som. A duração da bateria poderia ser melhor.', date: '2023-05-14' },
             ],
             orders: 92,
             revenue: 13799,
             notifications: [
-                { id: 1, type: 'danger', message: 'Product "Headphones Pro" has only 3 units left in stock.', date: '2023-05-15T10:30:00', read: false },
+                { id: 1, type: 'danger', message: 'O produto "Headphones Pro" tem apenas 3 unidades restantes em estoque.', date: '2023-05-15T10:30:00', read: false },
             ]
         },
         clothing: {
@@ -54,15 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeUsers: [50, 80, 60, 70, 60, 80, 100],
                 newUsers: [10, 15, 10, 15, 10, 15, 15]
             },
-            inventory: { labels: ['T-Shirts', 'Jeans', 'Jackets'], data: [45, 32, 18] },
+            inventory: { labels: ['Camisetas', 'Jeans', 'Jaquetas'], data: [45, 32, 18] },
             customers: { labels: ['18-24', '25-34', '35-44', '45+'], data: [25, 40, 20, 15] },
             reviews: [
-                { id: 1, author: 'Maria J.', rating: 5, text: 'Love the product! Fast delivery and exceeded expectations.', date: '2023-05-15' },
+                { id: 1, author: 'Maria J.', rating: 5, text: 'Amei o produto! Entrega rápida e superou as expectativas.', date: '2023-05-15' },
             ],
             orders: 92,
             revenue: 10781,
             notifications: [
-                { id: 2, type: 'danger', message: 'Product "Smartphone X9" has only 5 units left in stock.', date: '2023-05-14T14:15:00', read: false },
+                { id: 2, type: 'danger', message: 'O produto "Smartphone X9" tem apenas 5 unidades restantes em estoque.', date: '2023-05-14T14:15:00', read: false },
             ]
         }
     };
@@ -73,19 +73,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
     }
 
     function formatShortDate(dateString) {
         const options = { month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
     }
 
     function filterDataByDateRange(data, startDate, endDate) {
         if (!startDate || !endDate) return data;
 
         const filteredData = JSON.parse(JSON.stringify(data));
-
 
         if (filteredData.sales && filteredData.sales.labels) {
             const salesIndices = [];
@@ -133,9 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (filteredData.sales && filteredData.sales.data) {
-
-            filteredData.orders = filteredData.sales.data.reduce((sum, value) => sum + 1, 0);
-
+            filteredData.orders = filteredData.sales.data.reduce((sum) => sum + 1, 0);
             filteredData.revenue = filteredData.sales.data.reduce((sum, value) => sum + value, 0);
         }
 
@@ -200,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (document.getElementById(id)) {
                 if (chartInstances[id]) chartInstances[id].destroy();
             }
-            container.innerHTML = `<canvas id="${id}" role="img" aria-label="${config.data.datasets[0].label} chart"></canvas>`;
+            container.innerHTML = `<canvas id="${id}" role="img" aria-label="Gráfico de ${config.data.datasets[0].label}"></canvas>`;
             const ctx = document.getElementById(id).getContext('2d');
             chartInstances[id] = new Chart(ctx, config);
         }, 500);
@@ -217,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: {
                     labels: salesLabels,
                     datasets: [{
-                        label: 'Sales ($)',
+                        label: 'Vendas (R$)',
                         data: data.sales.data,
                         backgroundColor: 'rgba(66, 153, 225, 0.1)',
                         borderColor: 'lightgray',
@@ -230,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#salesChart').parentElement.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-chart-line"></i>
-                            <p>No sales data available for the selected filters</p>
+                            <p>Não há dados de vendas para os filtros selecionados</p>
                         </div>`;
         }
 
@@ -240,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: {
                     labels: data.inventory.labels,
                     datasets: [{
-                        label: 'Stock Levels',
+                        label: 'Níveis de Estoque',
                         data: data.inventory.data,
                         backgroundColor: [
                             'rgba(66, 153, 225, 0.7)', 'rgba(72, 187, 120, 0.7)',
@@ -254,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#inventoryChart').parentElement.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-boxes"></i>
-                            <p>No inventory data available for the selected filters</p>
+                            <p>Não há dados de estoque para os filtros selecionados</p>
                         </div>`;
         }
 
@@ -265,14 +262,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: activityLabels,
                     datasets: [
                         {
-                            label: 'Active Users',
+                            label: 'Usuários Ativos',
                             data: data.activity.activeUsers,
                             borderColor: 'lightgray',
                             backgroundColor: 'rgba(66, 153, 225, 0.1)',
                             fill: true
                         },
                         {
-                            label: 'New Users',
+                            label: 'Novos Usuários',
                             data: data.activity.newUsers,
                             borderColor: 'lightgray',
                             backgroundColor: 'rgba(72, 187, 120, 0.1)',
@@ -286,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#activityChart').parentElement.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-users"></i>
-                            <p>No activity data available for the selected filters</p>
+                            <p>Não há dados de atividade para os filtros selecionados</p>
                         </div>`;
         }
 
@@ -296,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: {
                     labels: data.customers.labels,
                     datasets: [{
-                        label: 'Age Group',
+                        label: 'Faixa Etária',
                         data: data.customers.data,
                         backgroundColor: [
                             'rgba(66, 153, 225, 0.7)', 'rgba(72, 187, 120, 0.7)',
@@ -312,13 +309,14 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#customerChart').parentElement.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-user-friends"></i>
-                            <p>No demographic data available for the selected filters</p>
+                            <p>Não há dados demográficos para os filtros selecionados</p>
                         </div>`;
         }
 
-        document.getElementById('revenueValue').textContent = data.revenue ? `$${data.revenue.toLocaleString()}` : '$0';
+        document.getElementById('revenueValue').textContent = data.revenue ? `R$ ${data.revenue.toLocaleString('pt-BR')}` : 'R$ 0';
         document.getElementById('ordersValue').textContent = data.orders || '0';
 
+        // Seção de avaliações
         const reviewsContainer = document.getElementById('reviewsContainer');
         if (data.reviews && data.reviews.length > 0) {
             reviewsContainer.innerHTML = data.reviews.map(review => `
@@ -338,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
             reviewsContainer.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-comment-alt-slash"></i>
-                            <p>No reviews available for the selected filters</p>
+                            <p>Não há avaliações disponíveis para os filtros selecionados</p>
                         </div>`;
         }
     }
@@ -352,133 +350,93 @@ document.addEventListener('DOMContentLoaded', () => {
         badge.textContent = unreadCount > 0 ? unreadCount : '';
 
         if (notifications.length === 0) {
-            list.innerHTML = `<div class="empty-state"><i class="fas fa-bell-slash"></i><p>No notifications to display</p></div>`;
+            list.innerHTML = `<div class="empty-state"><i class="fas fa-bell-slash"></i><p>Não há notificações para exibir</p></div>`;
         } else {
             list.innerHTML = notifications.map(item => `
                         <div class="notification-item ${item.type} ${item.read ? 'read' : ''}" data-id="${item.id}">
                             ${!item.read ? '<div class="notification-read"></div>' : ''}
                             <p>${item.message}</p>
-                            <div class="notification-time">${formatDate(item.date)}</div>
+                            <small>${formatDate(item.date)}</small>
                         </div>
                     `).join('');
         }
     }
 
     function markNotificationAsRead(id) {
-        const notification = currentData.notifications?.find(n => n.id === id);
-        if (notification && !notification.read) {
-            notification.read = true;
-            populateNotifications();
-        }
+        const notification = currentData.notifications.find(n => n.id === id);
+        if (notification) notification.read = true;
+        populateNotifications();
     }
 
-    function showNotificationToast(message, type = 'success') {
-        const existingToast = document.querySelector('.toast-notification');
-        if (existingToast) existingToast.remove();
+    // Trocar categoria (all, electronics, clothing)
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            const selectedCategory = e.target.dataset.category;
 
-        const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-        const toast = document.createElement('div');
-        toast.className = 'toast-notification';
-        toast.innerHTML = `<i class="fas ${icon}" style="margin-right: 10px;"></i> ${message}`;
-        document.body.appendChild(toast);
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
 
-        setTimeout(() => {
-            toast.style.opacity = 1;
-            toast.style.transform = 'translate(-50%, 0)';
-        }, 10);
+            currentData = JSON.parse(JSON.stringify(mockData[selectedCategory] || mockData.all));
 
-        setTimeout(() => {
-            toast.style.opacity = 0;
-            toast.style.transform = 'translate(-50%, -20px)';
-            setTimeout(() => document.body.removeChild(toast), 500);
-        }, 3000);
-    }
-
-    function applyFilters() {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            const category = document.getElementById('categoryFilter').value;
-            const startDateInput = document.getElementById('startDate');
-            const endDateInput = document.getElementById('endDate');
-
-            // Get dates only if inputs have values
-            const startDate = startDateInput.value ? new Date(startDateInput.value) : null;
-            const endDate = endDateInput.value ? new Date(endDateInput.value) : null;
-
-            // Validate date range if both dates are provided
-            if (startDate && endDate && startDate > endDate) {
-                showNotificationToast('Start date cannot be after end date', 'error');
-                return;
-            }
-
-            // Get the base data for the selected category
-            let filteredData = JSON.parse(JSON.stringify(mockData[category] || mockData.all));
-
-            // Apply date filtering only if dates are provided
-            if (startDate && endDate) {
-                filteredData = filterDataByDateRange(filteredData, startDate, endDate);
-            }
-
-            currentData = filteredData;
             populateDashboard(currentData);
             populateNotifications();
-            showNotificationToast('Filters applied successfully!');
-        }, 300);
-    }
-
-    function setupEventListeners() {
-        document.getElementById('applyFilters').addEventListener('click', applyFilters);
-
-        const notificationBell = document.getElementById('notificationBell');
-        const notificationPanel = document.getElementById('notificationPanel');
-        const overlay = document.getElementById('overlay');
-        const closeNotifications = document.getElementById('closeNotifications');
-
-        const toggleNotifications = () => {
-            notificationPanel.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = notificationPanel.classList.contains('active') ? 'hidden' : '';
-        };
-
-        notificationBell.addEventListener('click', toggleNotifications);
-        closeNotifications.addEventListener('click', toggleNotifications);
-        overlay.addEventListener('click', toggleNotifications);
-
-        document.getElementById('notificationList').addEventListener('click', (e) => {
-            const item = e.target.closest('.notification-item');
-            if (item) {
-                markNotificationAsRead(parseInt(item.dataset.id));
-            }
         });
+    });
 
-        document.querySelectorAll('.btn-learn-more').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const extraContent = e.target.closest('.card').querySelector('.card-extra-content');
-                const isVisible = extraContent.classList.toggle('visible');
-                e.target.textContent = isVisible ? 'Show Less' : 'Learn More';
-            });
+    // Filtrar por intervalo de datas
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+
+    [startDateInput, endDateInput].forEach(input => {
+        input.addEventListener('change', () => {
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const startDate = startDateInput.value ? new Date(startDateInput.value) : null;
+                const endDate = endDateInput.value ? new Date(endDateInput.value) : null;
+
+                const filtered = filterDataByDateRange(JSON.parse(JSON.stringify(currentData)), startDate, endDate);
+                populateDashboard(filtered);
+            }, 400);
         });
+    });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && notificationPanel.classList.contains('active')) {
-                toggleNotifications();
-            }
+    document.querySelectorAll('.btn-learn-more').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const extraContent = e.target.closest('.card').querySelector('.card-extra-content');
+            const isVisible = extraContent.classList.toggle('visible');
+            e.target.textContent = isVisible ? 'Mostrar menos' : 'Saiba mais';
         });
-    }
+    });
 
-    function initDashboard() {
-        const today = new Date();
-        const lastWeek = new Date();
-        lastWeek.setDate(today.getDate() - 7);
+    document.getElementById('notificationList').addEventListener('click', e => {
+        let target = e.target;
+        while (target && !target.classList.contains('notification-item')) {
+            target = target.parentElement;
+        }
+        if (target) {
+            const id = parseInt(target.dataset.id);
+            markNotificationAsRead(id);
+        }
+    });
 
-        // Format dates for input fields (YYYY-MM-DD)
-        document.getElementById('endDate').valueAsDate = today;
-        document.getElementById('startDate').valueAsDate = lastWeek;
+    const notificationBell = document.getElementById('notificationBell');
+    const notificationPanel = document.getElementById('notificationPanel');
+    const overlay = document.getElementById('overlay');
+    const closeNotifications = document.getElementById('closeNotifications');
 
-        populateDashboard(currentData);
-        populateNotifications();
-        setupEventListeners();
-    }
+    const toggleNotifications = () => {
+        notificationPanel.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = notificationPanel.classList.contains('active') ? 'hidden' : '';
+    };
 
-    initDashboard();
+    notificationBell.addEventListener('click', toggleNotifications);
+    closeNotifications.addEventListener('click', toggleNotifications);
+    overlay.addEventListener('click', toggleNotifications);
+
+
+    // Inicialização
+    populateDashboard(currentData);
+    populateNotifications();
 });
