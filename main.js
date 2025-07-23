@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
             orders: 184,
             revenue: 24580,
             notifications: [
-                { id: 1, type: 'danger', message: 'O produto "Headphones Pro" tem apenas 3 unidades disponíveis em estoque.', date: '2023-05-15T10:30:00', read: false },
-                { id: 2, type: 'danger', message: 'O produto "Celular X9" tem apenas 5 unidades disponíveis em estoque.', date: '2023-05-14T14:15:00', read: false },
+                { id: 1, type: 'danger', message: 'O produto "Iphone 14 pro max" tem apenas 3 unidades disponíveis em estoque.', date: '2023-05-15T10:30:00', read: false },
+                { id: 2, type: 'danger', message: 'O produto "Pc Gamer" tem apenas 5 unidades disponíveis em estoque.', date: '2023-05-14T14:15:00', read: false },
             ]
         },
         electronics: {
