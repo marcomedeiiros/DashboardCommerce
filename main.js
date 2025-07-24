@@ -2,67 +2,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const mockData = {
         all: {
             sales: {
-                labels: ['2023-05-01', '2023-05-02', '2023-05-03', '2023-05-04', '2023-05-05', '2023-05-06', '2023-05-07'],
+                labels: ['2025-05-01', '2025-05-02', '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-05-07'],
                 data: [1200, 1900, 1500, 2200, 1800, 2500, 2800]
             },
             activity: {
-                labels: ['2023-05-01', '2023-05-02', '2023-05-03', '2023-05-04', '2023-05-05', '2023-05-06', '2023-05-07'],
+                labels: ['2025-05-01', '2025-05-02', '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-05-07'],
                 activeUsers: [150, 230, 180, 250, 200, 280, 320],
                 newUsers: [30, 45, 35, 50, 40, 55, 60]
             },
             inventory: { labels: ['Celular', 'Fones de ouvido', 'Notebook', 'Monitor'], data: [5, 3, 12, 25] },
             customers: { labels: ['18-24', '25-34', '35-44', '45+'], data: [30, 45, 15, 10] },
             reviews: [
-                { id: 1, author: 'Eduardo', rating: 5, text: 'Adorei o produto! Entrega rápida e superou as expectativas.', date: '2023-05-15' },
-                { id: 2, author: 'Vulgo D', rating: 4, text: 'Ótima qualidade de som. A duração da bateria poderia ser melhor.', date: '2023-05-14' },
+                { id: 1, author: 'Eduardo', rating: 5, text: 'Adorei o produto! Entrega rápida e superou as expectativas.', date: '2025-05-18' },
+                { id: 2, author: 'Vulgo D', rating: 4, text: 'Ótima qualidade de som. A duração da bateria poderia ser melhor.', date: '2025-05-14' },
             ],
             orders: 184,
             revenue: 24580,
             notifications: [
-                { id: 1, type: 'danger', message: 'O produto "Iphone 14 pro max" tem apenas 3 unidades disponíveis em estoque.', date: '2023-05-15T10:30:00', read: false },
-                { id: 2, type: 'danger', message: 'O produto "Pc Gamer" tem apenas 5 unidades disponíveis em estoque.', date: '2023-05-14T14:15:00', read: false },
+                { id: 1, type: 'danger', message: 'O produto "Iphone 14 pro max" tem apenas 3 unidades disponíveis em estoque.', date: '2025-05-15T10:30:00', read: false },
+                { id: 2, type: 'danger', message: 'O produto "Pc Gamer" tem apenas 5 unidades disponíveis em estoque.', date: '2025-05-14T14:15:00', read: false },
             ]
         },
         electronics: {
             sales: {
-                labels: ['2023-05-01', '2023-05-02', '2023-05-03', '2023-05-04', '2023-05-05', '2023-05-06', '2023-05-07'],
+                labels: ['2025-05-01', '2025-05-02', '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-05-07'],
                 data: [800, 1200, 900, 1500, 1100, 1800, 2000]
             },
             activity: {
-                labels: ['2023-05-01', '2023-05-02', '2023-05-03', '2023-05-04', '2023-05-05', '2023-05-06', '2023-05-07'],
+                labels: ['2025-05-01', '2025-05-02', '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-05-07'],
                 activeUsers: [100, 150, 120, 180, 140, 200, 220],
                 newUsers: [20, 30, 25, 35, 30, 40, 45]
             },
             inventory: { labels: ['Celular', 'Fones de ouvido', 'Notebook'], data: [5, 3, 12] },
             customers: { labels: ['18-24', '25-34', '35-44', '45+'], data: [35, 50, 10, 5] },
             reviews: [
-                { id: 2, author: 'John S.', rating: 4, text: 'Ótima qualidade de som. A duração da bateria poderia ser melhor.', date: '2023-05-14' },
+                { id: 2, author: 'John S.', rating: 4, text: 'Ótima qualidade de som. A duração da bateria poderia ser melhor.', date: '2025-05-14' },
             ],
             orders: 92,
             revenue: 13799,
             notifications: [
-                { id: 1, type: 'danger', message: 'O produto "Headphones Pro" tem apenas 3 unidades restantes em estoque.', date: '2023-05-15T10:30:00', read: false },
+                { id: 1, type: 'danger', message: 'O produto "Headphones Pro" tem apenas 3 unidades restantes em estoque.', date: '2025-05-15T10:30:00', read: false },
             ]
         },
         clothing: {
             sales: {
-                labels: ['2023-05-01', '2023-05-02', '2023-05-03', '2023-05-04', '2023-05-05', '2023-05-06', '2023-05-07'],
+                labels: ['2025-05-01', '2025-05-02', '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-05-07'],
                 data: [400, 700, 600, 700, 700, 700, 800]
             },
             activity: {
-                labels: ['2023-05-01', '2023-05-02', '2023-05-03', '2023-05-04', '2023-05-05', '2023-05-06', '2023-05-07'],
+                labels: ['2025-05-01', '2025-05-02', '2025-05-03', '2025-05-04', '2025-05-05', '2025-05-06', '2025-05-07'],
                 activeUsers: [50, 80, 60, 70, 60, 80, 100],
                 newUsers: [10, 15, 10, 15, 10, 15, 15]
             },
             inventory: { labels: ['Camisetas', 'Jeans', 'Jaquetas'], data: [45, 32, 18] },
             customers: { labels: ['18-24', '25-34', '35-44', '45+'], data: [25, 40, 20, 15] },
             reviews: [
-                { id: 1, author: 'Maria J.', rating: 5, text: 'Amei o produto! Entrega rápida e superou as expectativas.', date: '2023-05-15' },
+                { id: 1, author: 'Maria J.', rating: 5, text: 'Amei o produto! Entrega rápida e superou as expectativas.', date: '2025-05-15' },
             ],
             orders: 92,
             revenue: 10781,
             notifications: [
-                { id: 2, type: 'danger', message: 'O produto "Smartphone X9" tem apenas 5 unidades restantes em estoque.', date: '2023-05-14T14:15:00', read: false },
+                { id: 2, type: 'danger', message: 'O produto "Smartphone X9" tem apenas 5 unidades restantes em estoque.', date: '2025-05-14T14:15:00', read: false },
             ]
         }
     };
